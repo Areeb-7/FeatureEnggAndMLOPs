@@ -9,6 +9,10 @@ fastapi
 uvicorn[standard]
 pydantic
 
+# UI layer
+streamlit
+requests
+
 # Testing
 pytest
 httpx

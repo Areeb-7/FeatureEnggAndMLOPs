@@ -116,3 +116,21 @@ Every surviving feature after selection has ONE coefficient with a direct, reada
 — "holding everything else fixed, how many points does one unit of this feature add?" That
 keeps the notebook's focus where it belongs for a feature-engineering project: on whether the
 FEATURES are good, not on decoding an opaque model.
+
+## Beyond `uvicorn --reload`: Docker, a Streamlit UI, and AWS
+
+Everything above runs on your own laptop, with you keeping a terminal open. The next module —
+**`DOCKER_STREAMLIT_AWS_GUIDE.md`** — takes this exact same pipeline and API all the way to a
+real URL that stays up without your laptop:
+
+| Stage | What it adds | File(s) |
+|---|---|---|
+| 1. Docker basics | Package the API alone into a portable image | `docker/Dockerfile.api-only` |
+| 2. Streamlit UI | A form-based UI that calls the API over HTTP (no second copy of the model) | `streamlit_app.py` |
+| 3. Bundle both | ONE image running both services via a small supervisor script | `Dockerfile`, `docker/entrypoint.sh` |
+| 4. Docker Hub | Push the image so any machine (including AWS) can pull it | — |
+| 5. AWS EC2 | A real, always-on server running the container | `deploy/aws/ec2-user-data.sh`, `deploy/aws/EC2_WALKTHROUGH.md` |
+
+No new ML logic is introduced anywhere in this module — same pipeline, same API, same
+predictions. Only how it's *packaged and run* changes. Start with
+`DOCKER_STREAMLIT_AWS_GUIDE.md`.
